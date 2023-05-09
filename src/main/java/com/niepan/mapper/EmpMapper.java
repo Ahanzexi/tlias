@@ -1,10 +1,7 @@
 package com.niepan.mapper;
 
 import com.niepan.pojo.Emp;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,4 +17,18 @@ public interface EmpMapper {
     * 批量删除员工
     * */
     void delete(@Param("ids") List<Integer> ids);
+
+    /*
+    * 新建员工
+    * */
+    @Insert("insert into emp(username, name, gender, image, job, entrydate, dept_id, createtime, updatetime) " +
+            "values(#{username}, #{name}, #{gender}, #{image}, #{job}, #{entrydate}, #{deptId}, #{createTime}, #{updateTime})")
+    void insert(Emp emp);
+
+    /*
+    * 根据ID查询员工
+    * */
+    @Select("select id, username, name, gender, image, job, entrydate, dept_id as deptId, createtime, updatetime from emp where id = #{id}")
+    Emp getEmpById(String id);
+    void edit(Emp emp);
 }

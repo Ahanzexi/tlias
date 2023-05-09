@@ -1,6 +1,7 @@
 package com.niepan.controller;
 
 import com.github.pagehelper.Page;
+import com.niepan.pojo.Emp;
 import com.niepan.pojo.PageBean;
 import com.niepan.pojo.Result;
 import com.niepan.service.EmpService;
@@ -49,5 +50,32 @@ public class EmpController {
     public Result delete(@PathVariable List<Integer> ids){
        empService.delete(ids);
        return Result.success();
+    }
+
+    /*
+    * 2.3 添加员工
+    * */
+    @PostMapping()
+    public Result add(@RequestBody Emp emp){
+        empService.add(emp);
+        return Result.success();
+    }
+
+    /*
+    * 2.4 根据ID查询
+    * */
+    @GetMapping("/{id}")
+    public Result getEmpById(@PathVariable String id){
+        Emp emp = empService.getEmpById(id);
+        return Result.success(emp);
+    }
+
+    /*
+    * 2.5 修改员工
+    * */
+    @PutMapping()
+    public Result edit(@RequestBody Emp emp){
+        empService.edit(emp);
+        return Result.success();
     }
 }

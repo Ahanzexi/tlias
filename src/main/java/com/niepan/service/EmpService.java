@@ -1,5 +1,6 @@
 package com.niepan.service;
 
+import com.niepan.pojo.Emp;
 import com.niepan.pojo.PageBean;
 
 import java.time.LocalDate;
@@ -16,4 +17,19 @@ public interface EmpService {
     * 批量删除员工
     * */
     void delete(List<Integer> ids);
+
+    /*
+    * 新增员工
+    * */
+    void add(Emp emp);
+
+    /*
+    * 根据id查询员工
+    * */
+    Emp getEmpById(String id);
+
+    /*
+    * 修改员工
+    * */
+    void edit(Emp emp);
 }
