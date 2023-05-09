@@ -72,8 +72,7 @@ public class EmpServiceImpl implements EmpService {
     * 员工登录
     * */
     @Override
-    public boolean login(Emp emp) {
-        final Emp login = empMapper.getEmpByUsernameAndPassword(emp);
-        return login != null;
+    public Emp login(Emp emp) {
+        return empMapper.getEmpByUsernameAndPassword(emp);
     }
 }

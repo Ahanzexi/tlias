@@ -33,5 +33,5 @@ public interface EmpService {
     * */
     void edit(Emp emp);
 
-    boolean login(Emp emp);
+    Emp login(Emp emp);
 }
