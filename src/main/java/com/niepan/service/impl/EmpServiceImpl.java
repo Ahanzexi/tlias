@@ -19,6 +19,9 @@ public class EmpServiceImpl implements EmpService {
     @Autowired
     private EmpMapper empMapper;
 
+    /*
+    * 查询员工
+    * */
     @Override
     public PageBean page(Integer page, Integer pageSize, String name, Short gender, LocalDate begin, LocalDate end) {
         //1.设置分页参数
@@ -30,11 +33,17 @@ public class EmpServiceImpl implements EmpService {
         return pageBean;
     }
 
+    /*
+    * 删除员工
+    * */
     @Override
     public void delete(List<Integer> ids) {
         empMapper.delete(ids);
     }
 
+    /*
+    * 新建员工
+    * */
     @Override
     public void add(Emp emp) {
         emp.setCreateTime(LocalDateTime.now());
@@ -42,14 +51,29 @@ public class EmpServiceImpl implements EmpService {
         empMapper.insert(emp);
     }
 
+    /*
+    * 通过ID获取员工
+    * */
     @Override
     public Emp getEmpById(String id) {
         return empMapper.getEmpById(id);
     }
 
+    /*
+    * 编辑员工
+    * */
     @Override
     public void edit(Emp emp) {
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.edit(emp);
+    }
+
+    /*
+    * 员工登录
+    * */
+    @Override
+    public boolean login(Emp emp) {
+        final Emp login = empMapper.getEmpByUsernameAndPassword(emp);
+        return login != null;
     }
 }

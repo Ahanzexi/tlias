@@ -31,4 +31,7 @@ public interface EmpMapper {
     @Select("select id, username, name, gender, image, job, entrydate, dept_id as deptId, createtime, updatetime from emp where id = #{id}")
     Emp getEmpById(String id);
     void edit(Emp emp);
+
+    @Select("select * from emp where username = #{username} and password = #{password}")
+    Emp getEmpByUsernameAndPassword(Emp emp);
 }

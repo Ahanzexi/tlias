@@ -32,4 +32,6 @@ public interface EmpService {
     * 修改员工
     * */
     void edit(Emp emp);
+
+    boolean login(Emp emp);
 }
