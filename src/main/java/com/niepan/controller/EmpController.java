@@ -1,6 +1,7 @@
 package com.niepan.controller;
 
 import com.github.pagehelper.Page;
+import com.niepan.anno.Log;
 import com.niepan.pojo.Emp;
 import com.niepan.pojo.PageBean;
 import com.niepan.pojo.Result;
@@ -46,6 +47,7 @@ public class EmpController {
     /*
     * 2.2 删除员工
     * */
+    @Log
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids){
        empService.delete(ids);
@@ -55,6 +57,7 @@ public class EmpController {
     /*
     * 2.3 添加员工
     * */
+    @Log
     @PostMapping()
     public Result add(@RequestBody Emp emp){
         empService.add(emp);
@@ -73,6 +76,7 @@ public class EmpController {
     /*
     * 2.5 修改员工
     * */
+    @Log
     @PutMapping()
     public Result edit(@RequestBody Emp emp){
         empService.edit(emp);

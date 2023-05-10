@@ -1,9 +1,9 @@
 package com.niepan.controller;
 
+import com.niepan.anno.Log;
 import com.niepan.pojo.Dept;
 import com.niepan.pojo.Result;
 import com.niepan.service.DeptService;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Insert;
 import org.slf4j.Logger;
@@ -36,6 +36,7 @@ public class DeptController {
     }
 
     /* 1.2 删除部门 */
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable int id)  {
         log.info("根据ID删除部门");
@@ -44,6 +45,7 @@ public class DeptController {
     }
 
     /*  1.3 新增部门 */
+    @Log
     @PostMapping()
     public Result add(@RequestBody Dept dept){
         log.info("新增部门");
@@ -59,6 +61,7 @@ public class DeptController {
     }
 
     /* 1.5 修改部门 */
+    @Log
     @PutMapping()
     public Result edit(@RequestBody Dept dept){
         deptService.edit(dept);
