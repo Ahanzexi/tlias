@@ -1,34 +1,29 @@
-package com.niepan.filter;
+package com.niepan.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.util.StringUtil;
 import com.niepan.pojo.Result;
 import com.niepan.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Slf4j
-//@WebFilter(urlPatterns = "/*")
-public class LoginFilter implements Filter {
+@Component
+public class LoginInterceptor implements HandlerInterceptor {
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        final HttpServletRequest req = (HttpServletRequest) request;
-        final HttpServletResponse resp = (HttpServletResponse) response;
-
+    public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
+        log.error("进来了!");
         // 1.获取请求url。
         String url = req.getRequestURL().toString();
         log.info("请求的url: {}",url);
         //2.判断请求trl中是否包含login，如果包含，说明是登录操作，放行。
         if(url.contains("login")){
             log.info("登录操作,放行!");
-            chain.doFilter(request,response);
-            return;
+            return true;
         }
         //3.获取请求头中的令牌(token）
         String jwt =  req.getHeader("token");
@@ -39,7 +34,7 @@ public class LoginFilter implements Filter {
             // 手动转换 对象转为JSON
             final String notLogin = JSONObject.toJSONString(error);
             resp.getWriter().write(notLogin);
-            return;
+            return false;
         }
         //5.解析token，如果解析失败，返回错误结果（未登录）
         try {
@@ -50,10 +45,9 @@ public class LoginFilter implements Filter {
             // 手动转换 对象转为JSON
             final String notLogin = JSONObject.toJSONString(error);
             resp.getWriter().write(notLogin);
-            return;
+            return false;
         }
         // 6.放行
-        log.info("令牌合法,放行");
-        chain.doFilter(request,response);
+        return true;
     }
 }
