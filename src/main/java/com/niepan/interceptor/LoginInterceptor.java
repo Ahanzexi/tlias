@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-        log.error("进来了!");
         // 1.获取请求url。
         String url = req.getRequestURL().toString();
         log.info("请求的url: {}",url);
